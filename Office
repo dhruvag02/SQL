@@ -1,0 +1,118 @@
+show databases;
+create database office;
+use office;
+create table suppliers(Sid varchar(20) primary key,
+Sname varchar(30),City varchar(20));
+
+create table parts(Pid varchar(20) primary key,
+Pname varchar(30),Color varchar(10));
+
+create table catalog(CSid varchar(20),CPid varchar(20),Cost int,
+foreign key(CSid) references suppliers(Sid),foreign key(CPid) references parts(Pid));
+
+insert into suppliers values("100001","Acme Widget","Bangalore"),
+("100002","Johns","Kolkata"),
+("100003","Vimal","Mumbai"),
+("100004","Reliance","Delhi");
+select *
+from suppliers;
+
+insert into parts values(20001, 'Book', 'Red'),
+(20002, 'Pen', 'Red'),
+(20003, 'Pencil', 'Green'),
+(20004, 'Mobile', 'Green'),
+(20005, 'Charger', 'Black');
+select *
+from parts;
+
+insert into catalog values(100001,20001,10),
+(100001,20002,10),
+(100001,20003,30),
+(100001,20004,10),
+(100001,20005,10),
+(100002,20001,10),
+(100002,20002,20),
+(100003,20003,30),
+(100004,20003,40);
+select * 
+from catalog;
+alter table catalog 
+add CONSTRAINT PRKEY primary key(CSid,CPid);
+
+select distinct Sid
+from suppliers,parts,catalog
+where suppliers.Sid=catalog.Csid AND parts.Pid=catalog.CPid AND color IN ('red','green');
+
+
+select distinct Sid
+from suppliers,catalog,parts
+where suppliers.Sid=catalog.Csid AND parts.Pid=catalog.CPid AND (color="RED" OR City="Bangalore");
+
+select C1.CSid,C2.CSid,C1.Cost,C2.cost
+from catalog as C1,catalog as C2,parts
+where parts.Pid=C1.CPid AND parts.Pid=C2.CPid AND C1.cost>C2.cost; 
+
+select Sid,color
+from suppliers,parts,catalog
+where suppliers.Sid=catalog.CSid AND parts.Pid=catalog.CPid AND Color="red";
+
+Suppliers
+100001	Acme Widget	Bangalore
+100002	Johns	Kolkata
+100003	Vimal	Mumbai
+100004	Reliance	Delhi
+		
+Parts
+20001	Book	Red
+20002	Pen	Red
+20003	Pencil	Green
+20004	Mobile	Green
+20005	Charger	Black
+		
+Catalog
+100001	20001	10
+100001	20002	10
+100001	20003	30
+100001	20004	10
+100001	20005	10
+100002	20001	10
+100002	20002	20
+100003	20003	30
+100004	20003	40
+		
+    
+OUTPUT
+1.
+select distinct Sid
+from suppliers,parts,catalog
+where suppliers.Sid=catalog.Csid AND parts.Pid=catalog.CPid AND color IN ('red','green');
+
+100001
+100002
+100003
+100004
+
+2.
+select distinct Sid
+from suppliers,catalog,parts
+where suppliers.Sid=catalog.Csid AND parts.Pid=catalog.CPid AND (color="RED" OR City="Bangalore");
+100001
+100002
+
+3.
+select C1.CSid,C2.CSid,C1.Cost,C2.cost
+from catalog as C1,catalog as C2,parts
+where parts.Pid=C1.CPid AND parts.Pid=C2.CPid AND C1.cost>C2.cost; 
+100002	100001	20	10
+100004	100001	40	30
+100004	100003	40	30
+
+4.
+select Sid,color
+from suppliers,parts,catalog
+where suppliers.Sid=catalog.CSid AND parts.Pid=catalog.CPid AND Color="red";
+100001	Red
+100002	Red
+100001	Red
+100002	Red
+
