@@ -1,0 +1,30 @@
+show databases;
+create database Student;
+use Student;
+create table STUDENT(Snum int primary key,Sname varchar(30),Major varchar(30),Lvl varchar(30),age int);
+insert into STUDENT values(000,"Maruthi","cse","jr",18),
+(001,"Narayan","cse","3y",20),
+(002,"Naveen","cse","2y",19),
+(003,"Shyam","cse","jr",18),
+(004,"Iyer","cse","senior",22),
+(005,"Sodhi","cse","senior",21);
+
+create table CLASS(Cname varchar(30) primary key,Meets_at time,Room varchar(30),Fid int);
+insert into CLASS values("A","08:00:00","218",01),
+("B","08:00:00","219",02),
+("C","08:00:00","220",03),
+("D","10:00:00","218",04),
+("E","12:00:00","218",05);
+
+create table ENROLLED(Snum int,Cname varchar(30),primary key(Snum,Cname),
+foreign key(Snum) references STUDENT(Snum),foreign key(Cname)references CLASS(Cname));
+insert into ENROLLED values(001,"A"),
+(002,"B"),(005,"C"),(000,"D");
+
+create table FACULTY(Fid int primary key,Fname varchar(30),Deptid int);
+insert into FACULTY values(01,"Lakshmi",010),
+(02,"Sarita",010),
+(03,"Saroj",010),
+(04,"Nitya",010),
+(05,"Geeta",010);
+
