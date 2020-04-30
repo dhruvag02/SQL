@@ -57,9 +57,28 @@ select * from participated;
 
 update participated set damage_amount=25000 where reg_num="KA053408" AND report_num="12";
 select damage_amount from participated where reg_num="KA053408";
+OUTPUT
+'25000'
 select * from participated;
+                                            
 
 select count(distinct "A01") from participated,
 accident where participated.report_num=accident.report_num and accident_date like '%08';
+                                            OUTPUT
+                                            1
 select count(participated.report_num) as count from participated,
 car where participated.reg_num=car.reg_num and car.model="Honda";
+                                            OUTPUT
+                                            1
+# Delete the tuple whose damage amount is less than average damage amount
+delete from participated
+where damage_amount<(select avg(damage_amount)
+					 from participated);
+# List the name of drivers whose damage amount is greater than average damage amount                                            
+select A.name1
+from person A,participated B
+where A.driver_id=B.driver_id and damage_amount>(select avg(damage_amount)
+												 from participated);
+                                            OUTPUT
+                                            Pradeep
+                                            Smith
