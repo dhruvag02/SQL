@@ -76,19 +76,23 @@ select *
 from rating;
 
 # Query
-select M.mov_title
+1.select M.mov_title
 from movies M, director D
 where  M.dir_id=D.dir_id and D.dir_name='Hitchcock';
+OUTPUT
+AKASH
 
- select M.mov_title
+2.select M.mov_title
  from movies M, movie_cast C
  where M.mov_id=C.mov_id
  group by C.mov_id
  having count(*)>=2;
  # Alternate
  select mov_title from movies m, movie_cast mv where m.mov_id=mv.mov_id and act_id in( select act_id from movie_cast group by act_id having count( act_id)>1) group by mov_title having count(*)>1;
+ OUTPUT
+ BAHUBALI-1
  
-( select A.act_id, A.act_name
+3.( select A.act_id, A.act_name
  from actor A,movies M, movie_cast C
  where M.mov_id=C.mov_id and A.act_id=C.act_id and M.mov_year<'2000')
  union
@@ -97,6 +101,8 @@ where  M.dir_id=D.dir_id and D.dir_name='Hitchcock';
  where M.mov_id=C.mov_id and A.act_id=C.act_id and M.mov_year>'2015');
  # Alternate
  select act_name from actor a join movie_cast c on a.act_id=c.act_id join movies m on c.mov_id=m.mov_id where m.mov_year not between 2000 and 2015;
+OUTPUT
+301	ANUSHKA
 
 # Extra query 
  select M.mov_title, count(*), max(R.rev_stars)
@@ -104,14 +110,19 @@ where  M.dir_id=D.dir_id and D.dir_name='Hitchcock';
  where M.mov_id=R.mov_id and M.mov_id=C.mov_id and C.act_id=A.act_id and R.rev_stars>=1
  order by M.mov_title;
  
- select M.mov_title, R.rev_stars
+ 4.select M.mov_title, R.rev_stars
  from movies M,rating R
  where M.mov_id=R.mov_id and R.rev_stars>=1
  order by M.mov_title;
  # Alternate
  select mov_title ,max(rev_stars) from movies inner join rating using(mov_id) group by mov_title having max(rev_stars)>0 order by mov_title;
+ OUTPUT
+ AKASH	5
+BAHUBALI-1	2
+BAHUBALI-2	4
+WAR HORSE	5
  
- SET SQL_SAFE_UPDATES=1;
+5.SET SQL_SAFE_UPDATES=0; //SQL configuration
  update rating
  set rev_stars=5
  where rating.mov_id in (select M.mov_id
@@ -121,3 +132,6 @@ select R.mov_id, R.rev_stars
 from rating R, movies M, director D
 where R.mov_id=M.mov_id and M.dir_id=D.dir_id and D.dir_name='Steven Spielberg';
 # Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column.  To disable safe mode, toggle the option in Preferences -> SQL Editor and reconnect.
+
+OUTPUT after updating
+1004	5
