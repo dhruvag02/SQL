@@ -1,34 +1,3 @@
-
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@dhruvag02
-Learn Git and GitHub without any code!
-
-Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
-1BM18CS069 /
-DBMS-1BM18CS069
-
-1
-0
-
-    0
-
-Code
-Issues 0
-Pull requests 0
-Actions
-Projects 0
-Wiki
-Security 0
-
-    Insights
-
-DBMS-1BM18CS069/student_faculty
-@1BM18CS069 1BM18CS069 Create student_faculty 21d52d0 26 days ago
-99 lines (91 sloc) 3.12 KB
 create table student
 (
  snum int(10),
@@ -66,16 +35,16 @@ create table enrolled
  foreign key(cname) references class(cname)
 );
 
-insert into student values(1,'pooja','cse','sr',20);
+insert into student values(1,'Dhruv','cse','sr',20);
 insert into student values(2,'niha','ise','jr',19);
 insert into student values(3,'shikha','ete','jr',19);
 insert into student values(4,'anusree','cse','sr',20);
-insert into student values(5,'divya','ise','sr',20);
-insert into student values(6,'arpana','cse','sr',20);
+insert into student values(5,'Dhanraj','ise','sr',20);
+insert into student values(6,'Nikhi','cse','sr',20);
 insert into student values(7,'prathibha','ise','jr',19);
-insert into student values(8,'saakshi','ete','jr',19);
+insert into student values(8,'Tanul','ete','jr',19);
 insert into student values(9,'sravya','cse','sr',20);
-insert into student values(10,'snehitha','ise','sr',20);
+insert into student values(10,'Gaurank','ise','sr',20);
 
 insert into faculty values(10,'prof. Murthy',10);
 insert into faculty values(20,'prof. Sudha',20);
@@ -129,17 +98,4 @@ insert into enrolled values(10,'3A');
                    having count(*)>=all(select count(*)
                    from student s2 where s1.age=s2.age group by s2.lvl,s2.age));
 
-    © 2020 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Status
-    Help
-
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
 
